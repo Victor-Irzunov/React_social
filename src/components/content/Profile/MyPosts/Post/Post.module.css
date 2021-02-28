@@ -1,0 +1,17 @@
+.block{
+	padding: 0px 0px 20px 10px;
+	margin: 10px 0px 10px 0px;
+	display: flex;
+	justify-content: flex-start;
+}
+
+.block img{
+	width: 30px;
+	border-radius: 50%;
+}
+
+.mini{
+	margin-left: 40px;
+	font-size: 20px;
+	margin-right: 40px;
+}

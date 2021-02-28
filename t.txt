@@ -1,0 +1,7 @@
+https://themeforest.net/legal/market
+social network
+
+
+..
+npm install --save react-router-dom
+npm i redux --save                               //42 - React JS Практика - Redux   7:36 (https://www.youtube.com/watch?v=IUEkRTov_E4)

@@ -1,0 +1,30 @@
+.nav {
+	grid-area: n;
+	background-color: #e0245e;
+}
+.nav a {
+	text-decoration: none;
+	font-size: 24px;
+}
+.settings {
+	margin-top: 30px;
+}
+.settings a {
+	padding: 10px 0px 0px 15px;
+}
+.li{
+	height: 30px;
+	padding-top: 20px;
+}
+.li a {
+	padding: 20px 0px 0px 35px;
+}
+.settings:hover a {
+	color: #ffffff;
+}
+.li:hover a {
+	color: #ffff00;
+}
+.li a.activeLink {
+	color: #ff80c0;
+}
