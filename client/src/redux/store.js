@@ -1,3 +1,8 @@
+//++ оставил для примера
+
+
+
+
 import profileReducer from './profile_reducer'
 import dialogsReducer from './dialogs_reducer'
 import sidebarReducer from './sidebar_reducer'
@@ -38,13 +43,13 @@ let store = {
 		// debugger
 		return this._state
 	},
-	//> подписка:
+	//> подписка и при изменении перерисовка:
 	subscribe(observer) {
 		this._rerender_Entire_Tree = observer
 	},
 	//< dispatch:
 	dispatch(action) {                             //! action - это обьект (как минимум есть св-во тип)
-		
+
 		this._state.profilePages = profileReducer(this._state.profilePages, action)
 
 		this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)

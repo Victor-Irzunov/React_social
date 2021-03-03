@@ -17,19 +17,30 @@ const initialState = {
 
 
 const profileReducer = (state = initialState, action) => {                        //если state не передадут то будешь по умолчанию state = initialState
+	
+	//в dialog сделал по другому - локоничней
 	switch (action.type) {
-		case ADD_POST:
-			let new_postsData = {
+		case ADD_POST: {
+			let new_post = {
 				id: 3,
 				message: state.newPostText,
 				likesCouns: 0
 			}
-			state.postData.push(new_postsData)
-			state.newPostText = ''
-			return state
-		case UPDATE_NEW_POST_TEXT:
-			state.newPostText = action.postMessage
-			return state
+			let stateCopy = {
+				...state,
+				postData: [...state.postData]
+			}
+
+			stateCopy.postData.push(new_post)
+			stateCopy.newPostText = ''
+			
+			return stateCopy
+		}
+		case UPDATE_NEW_POST_TEXT: {
+			let stateCopy = { ...state, newPostText: action.postMessage }
+
+			return stateCopy
+		}
 		default:
 			return state
 	}

@@ -1,6 +1,6 @@
 import React from 'react'
 import css from './Profile.module.css'
-import { MyPostsContainer } from './MyPosts/MyPosts_Container.jsx'
+import MyPostsContainer from './MyPosts/MyPosts_Container.jsx'
 import { ProfileInfo } from './ProfileInfo/ProfileInfo'
 
 
@@ -12,7 +12,7 @@ export const Profile = (props) => {
 				<img src='https://www.spain-internship.com/images/USA-internship2.png' />
 			</div>
 			<ProfileInfo />
-			<MyPostsContainer store={ props.store} />
+			<MyPostsContainer />
 		</div>
 	)
 }

@@ -3,15 +3,14 @@ import css from './MyPosts.module.css'
 import { Post } from './Post/Post.jsx'
 
 
-
 export const MyPosts = (props) => {
 
-	const postElement = props.postData.map(obj =>(
+	const postElement = props.postData.map(obj => (
+
 		<Post message={obj.message} likesCouns={obj.likesCouns} key={obj.id} />
 	))
 
 	const textArea = React.createRef()
-
 
 	const onAddPost = () => {
 		props.addPost()
@@ -21,14 +20,16 @@ export const MyPosts = (props) => {
 		const text = textArea.current.value
 		props.updateNewPostText(text)
 	}
-	
-	
+
 	return (
 		<div className={css.my_posts}>
 			<div>
 				<h2>My posts</h2>
 				<div>
-					<textarea ref={textArea} onChange={on} value={props.newPostText} />
+					<textarea
+						ref={textArea}
+						onChange={on}
+						value={props.newPostText} />
 					<br />
 					<button onClick={onAddPost}>Add post</button>
 				</div>

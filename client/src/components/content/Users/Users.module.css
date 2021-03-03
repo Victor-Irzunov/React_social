@@ -1,0 +1,32 @@
+.block {
+	display: flex;
+	margin: 15px 10px 20px 15px;
+}
+.foto {
+	width: 100px;
+	border-radius: 50%;
+}
+.col{
+	margin-right: 20px;
+	text-align: center;
+}
+.user__messages {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	border: 2px solid #808080;
+	border-radius: 5px;
+	padding: 20px 20px 20px 20px;
+	background-color: #8080c0;
+
+}
+.user__messages:nth-child(2) {
+	align-items: center;
+}
+.city {
+	margin-top: 10px;
+}
+button
+{
+	border-radius: 5px;
+}

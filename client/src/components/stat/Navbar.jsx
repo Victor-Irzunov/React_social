@@ -12,16 +12,19 @@ export const Navbar = () => {
 			</div>
 			<div className={css.li}>
 				<NavLink to='/dialogs' activeClassName={css.activeLink}>Dialogs</NavLink>
-				</div>
+			</div>
+			<div className={css.li}>
+				<NavLink to='/users' activeClassName={css.activeLink}>Users</NavLink>
+			</div>
 			<div className={css.li}>
 				<NavLink to='#'>News</NavLink>
-				</div>
+			</div>
 			<div className={css.li}>
 				<a href='#'>Music</a>
-				</div>
+			</div>
 			<div className={css.settings}>
 				<a href='#'>Settings</a>
-				</div>
+			</div>
 		</nav>
 	)
 }
