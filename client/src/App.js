@@ -1,7 +1,7 @@
 import React from 'react'
-import { Header } from './components/stat/Header.jsx'
 import { Navbar } from './components/stat/Navbar.jsx'
-import { Profile } from './components/content/Profile/Profile.jsx'
+import HeaderContainer from './components/stat/Header_container.jsx'
+import ProfileContainer from './components/content/Profile/Profile_Container.jsx'
 import UsersContainer from './components/content/Users/Users_container.jsx'
 import DialogContainer from './components/content/Dialogs/Dialogs_Container'
 import { BrowserRouter, BrowserRouter as Router, Route } from 'react-router-dom'
@@ -12,7 +12,7 @@ function App() {
   return (
 
     <div className='app-wrapper'>
-      <Header />
+      <HeaderContainer />
       <Navbar />
       <div className='content'>
 
@@ -20,8 +20,8 @@ function App() {
           <DialogContainer />
         </Route>
 
-        <Route path='/profile'>
-          <Profile />
+        <Route path='/profile/:id?'>
+          <ProfileContainer />
         </Route>
 
         <Route path='/users'>
@@ -41,3 +41,5 @@ export default App;
 
 //> wrapper(англ) - обертка
 //> workspace(англ) - рабочее место
+
+//' /:id? - ? парам может быть а может и не быть

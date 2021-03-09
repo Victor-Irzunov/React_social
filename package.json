@@ -21,8 +21,10 @@
   "homepage": "https://github.com/Victor-boxing/React_social#readme",
   "dependencies": {
     "config": "^3.3.4",
+    "cookie-parser": "^1.4.5",
     "express": "^4.17.1",
-    "mongoose": "^5.11.18"
+    "mongoose": "^5.11.18",
+    "mongoose-paginate": "^5.0.3"
   },
   "devDependencies": {
     "concurrently": "^6.0.0",

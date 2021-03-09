@@ -1,21 +1,9 @@
 import React, { useEffect } from 'react'
+import { NavLink } from 'react-router-dom'
 import css from './Users.module.css'
-import * as axios from 'axios'
-
-export const Users = props => {
 
 
-	const handleClick = () => {
-		if (props.userss.length === 0) {
-			axios.get('/api/users')
-				.then(res => {
-					props.setUsers(res.data.result)
-				})
-				.catch(err => console.log('Ошибка err: ', err))
-		}
-	}
-	useEffect(() => handleClick())
-
+const Users1 = props => {
 	let pageCount = Math.ceil(props.totalUsersCount / props.pageSize)
 
 	const pages = []
@@ -24,31 +12,21 @@ export const Users = props => {
 	}
 
 
-	const on = num => {
-		props.setNumPage(num)
-
-		axios.get(`/api/users?page=${num}`)
-			.then(res => {
-				props.setUsers(res.data.result)
-			})
-			.catch(err => console.log('Ошибка err: ', err))
-	}
-
-
 	return (
 		<div>
 			<div className={css.numPage}>
 				{pages.map(num => {
-					return <span className={props.currentPage === num ? css.selectPage : ''} onClick={() => { on(num) }} key={num}>{num}</span>
+					return <span className={props.currentPage === num ? css.selectPage : ''} onClick={() => { props.on(num) }} key={num}>{num}</span>
 				})}
-
 			</div>
 			{
 				props.userss.map(obj =>
 					<div className={css.block} key={obj.id}>
 						<div className={css.col}>
 							<div>
-								<img src={obj.photoUrl} className={css.foto} />
+								<NavLink to={`/profile/${obj.id}`}>
+									<img src={obj.photoUrl} className={css.foto} />
+								</NavLink>
 							</div>
 							<div>
 								{obj.followed
@@ -59,7 +37,6 @@ export const Users = props => {
 								}
 							</div>
 						</div>
-
 						<div className={css.user__messages}>
 							<div>
 								<h3>{obj.fullName}</h3>
@@ -76,18 +53,7 @@ export const Users = props => {
 	)
 }
 
-
-	// 	axios.post('/api/users', {
-	// 	followed: false,
-	// 	fullName: 'Kok',
-	// 	status: 'qweeri',
-	// 	email: 'qwert@tut.by',
-	// 	location: 'NewYork',
-	// 	photoUrl: 'https://i08.fotocdn.net/s108/50451820ffaebe03/user_l/2386492670.jpg'
-	// }).then(res => {
-	// 	console.log(res);
-	// 	console.log(res.data);
-	// })
+export default Users1
 
 
 	// axios.post('/api/users', {

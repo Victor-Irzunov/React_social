@@ -1,4 +1,4 @@
-//++ reducer - это чистая ф-ция которая принисает action и если надо модифицирует страрый state по принципу (копии) и возвращает измененую копию или если не менял то возрщ не тронутый state
+//++ reducer - это чистая ф-ция которая принисает action и если надо модифицирует(dispatch) страрый state по принципу (копии) и возвращает измененую копию или если не менял то возрщ не тронутый state
 //> профессиональные разработчики начинают с бизнеса (BLL)
 //(BLL)
 
@@ -7,57 +7,79 @@
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS = 'SET_USERS'
+const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
+const TOGGLE_ISLOADING = 'TOGGLE_ISLOADING'
 
-const usersReducer = (state = { users: [] }, action) => {  //если state не передадут то будешь по умолчанию state = initialState
+let initialState = {
+	users: [],
+	docs: {},
+	pageSize: 5,
+	totalUsersCount: 0,
+	currentPage: 1,
+	isLoading: false                      //is.. -  boolen
+}
+
+const usersReducer = (state = initialState, action) => {  //если state не передадут то будешь по умолчанию state = initialState
 	switch (action.type) {
+
 		case FOLLOW:
 			return {
 				...state,
 				users: state.users.map(obj => {
-
-					if (obj._id === action.userId) {
+					if (obj.id === action.userId) {
 						return { ...obj, followed: true }
 					}
 					return obj
 				}),
 				location: { ...state.location }
 			}
+
 		case UNFOLLOW:
 			return {
 				...state,
 				users: state.users.map(obj => {
-					if (obj._id === action.userId) {
+					if (obj.id === action.userId) {
 						return { ...obj, followed: false }
 					}
 					return obj
 				}),
 				location: { ...state.location }
 			}
+
 		case SET_USERS:
 			let a = {
 				...state,
-				users: [...state.users, ...action.users]
+				users: action.users.docs,             //< сам не понял
+				docs: { ...state.docs, ...action.users }
 			}
 			return a
+
+		case SET_CURRENT_PAGE:
+			return {
+				...state,
+				currentPage: action.currentPage
+			}
+
+		case TOGGLE_ISLOADING:
+			return {
+				...state,
+				isLoading: action.isLoad
+			}
+
 		default:
 			return state
 	}
-
 }
 
 //> ActionCreator  (это чистая ф-ция которая возвращает action)
 //! action - это обьект (как минимум есть св-во тип)
-export const followAction = userId => ({ type: FOLLOW, userId })
 
-export const unfollowAction = userId => {
-	return {
-		type: UNFOLLOW,
-		userId
-	}
-}
-//users возьмём с сервера
-export const setUsersAction = users => {
-	return { type: SET_USERS, users }
+export const followAction = userId => ({ type: FOLLOW, userId })
+export const unfollowAction = userId => ({ type: UNFOLLOW, userId })
+export const setUsersAction = users => ({ type: SET_USERS, users })
+export const toggleIsLoadingAction = isLoad => ({type: TOGGLE_ISLOADING, isLoad})
+export const setCurrentPageAction = currentPage => {
+	return { type: SET_CURRENT_PAGE, currentPage: currentPage }
 }
 //>
 

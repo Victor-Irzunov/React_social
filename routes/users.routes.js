@@ -6,13 +6,14 @@ const router = Router()
 
 
 
-
 router.get('/', async (req, res) => {
 	try {
-		const users = await User.find()
-		res.status(200).json({
-			users
-		})
+		User.paginate({}, { limit: 5, page: req.query.page })
+			.then(result => {
+				res.status(200).json({
+					result,
+				})
+			})
 	}
 	catch (error) {
 		res.status(500).json({
@@ -27,7 +28,7 @@ router.post('/', async (req, res) => {
 	try {
 		console.log('req.body: ', req.body)
 		const a = req.body
-		const new_user = new User({...a})
+		const new_user = new User({ ...a })
 		await new_user.save()
 		res.status(201).json(
 			{
@@ -50,7 +51,7 @@ module.exports = router
 // app.post('/users', (req, res) => {
 // 	let body = _.pick(req.body, ['email', 'password']);
 // 	let user = new User(body);
-	
+
 // 	user.save().then(() => {
 // 	 return user.generateAuthToken();
 // 	}).then((token) => {

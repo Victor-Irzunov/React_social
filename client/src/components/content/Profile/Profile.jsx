@@ -11,7 +11,7 @@ export const Profile = (props) => {
 			<div className='images'>
 				<img src='https://www.spain-internship.com/images/USA-internship2.png' />
 			</div>
-			<ProfileInfo />
+			<ProfileInfo www={props.sss.profile} />
 			<MyPostsContainer />
 		</div>
 	)

@@ -5,3 +5,18 @@
 .header img {
 	width: 50px;
 }
+.linkLogin
+{
+	float: right;
+	padding: 0px 20px 0px 0px;		
+}
+.linkLogin a
+{
+	text-decoration: none;
+	color: #ff0080;
+}
+.linkLogin h3
+{
+	vertical-align: text-top;
+	color: #ff8000;
+}

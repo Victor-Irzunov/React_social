@@ -1,4 +1,6 @@
 const { Schema, model, Types } = require('mongoose')
+var mongoosePaginate = require('mongoose-paginate');
+
 
 const schema = new Schema({
 	followed:
@@ -31,7 +33,24 @@ const schema = new Schema({
 		type: String,
 		required: true
 	},
+	// timestamps: true 
 })
+
+schema.method("toJSON", function () {
+	const { __v, _id, ...object } = this.toObject();
+	object.id = _id;
+	return object;
+});
+schema.plugin(mongoosePaginate)
+
+
+
+module.exports = model('User_model', schema)
+
+
+
+
+
 
 
 //const validator = require('validator');
@@ -52,5 +71,3 @@ const schema = new Schema({
 // 	require: true,
 // 	minlength: 6
 //   },
-
-module.exports = model('User_model', schema)

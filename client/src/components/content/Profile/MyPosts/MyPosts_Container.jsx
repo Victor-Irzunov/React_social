@@ -9,17 +9,16 @@ import { connect } from 'react-redux'
 //>  контейнерная компонента при испл. REACT-REDAX:
 //забываем про store
 
+
 let mapStateToProps = state => {
 	return {
 		postData: state.profilePages.postData,
 		newPostText: state.profilePages.newPostText
 	}
 }
-
 let mapDispatchToProps = dispatch => {
 	return {
 		updateNewPostText: text => dispatch(addNewpostActionCreator(text)),
-
 		addPost: () => dispatch(addPostActionCreator())
 	}
 }
