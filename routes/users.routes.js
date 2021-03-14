@@ -5,7 +5,7 @@ const chalk = require('chalk')
 const router = Router()
 
 
-
+//><
 router.get('/', async (req, res) => {
 	try {
 		User.paginate({}, { limit: 5, page: req.query.page })
@@ -17,30 +17,72 @@ router.get('/', async (req, res) => {
 	}
 	catch (error) {
 		res.status(500).json({
-			message: 'Витя в роуте ошибка'
+			message: 'Витя в роуте ошибка GET /'
 		})
-		console.log(chalk.red('Витя в роуте ошибка :', error))
+		console.log(chalk.red('Витя в роуте ошибка GET / :', error))
 	}
 })
 
-
+//><
 router.post('/', async (req, res) => {
 	try {
-		console.log('req.body: ', req.body)
 		const a = req.body
 		const new_user = new User({ ...a })
 		await new_user.save()
 		res.status(201).json(
 			{
 				message: 'Пользователь создан'
-			}
-		)
+			})
 	}
 	catch (error) {
-		res.status(500).json({
-			message: 'Витя в роуте ошибка'
-		})
-		console.log(chalk.red('Витя в роуте ошибка :', error))
+		res.status(500).json(
+			{
+				message: 'Витя в роуте ошибка POST / '
+			})
+		console.log(chalk.red('Витя в роуте ошибка POST / : ', error))
+	}
+})
+
+//><
+router.post('/:id', async (req, res) => {
+	try {
+		const user = await User.findById(req.params.id)
+		user.followed = true
+		await user.save()
+		res.status(200).json(
+			{
+				message: 'Подписался',
+				resultCode: 0
+			})
+		
+	}
+	catch (error) {
+		res.status(500).json(
+			{
+				message: 'Витя в роуте ошибка POST /follow'
+			})
+		console.log(chalk.red('Витя в роуте ошибка POST /follow: ', error))
+	}
+})
+
+//><
+router.delete('/:id', async (req, res) => {
+	try {
+		const user = await User.findById(req.params.id)
+		user.followed = false
+		await user.save()
+		res.status(200).json(
+			{
+				message: 'Отписался',
+				resultCode: 0
+			})
+	}
+	catch (error) {
+		res.status(500).json(
+			{
+				message: 'Витя в роуте ошибка POST /unfollow'
+			})
+		console.log(chalk.red('Витя в роуте ошибка POST /unfollow: ', error))
 	}
 })
 

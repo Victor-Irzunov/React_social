@@ -24,7 +24,7 @@ export const MyPosts = (props) => {
 	return (
 		<div className={css.my_posts}>
 			<div>
-				<h2>My posts</h2>
+				<h1>My posts</h1>
 				<div>
 					<textarea
 						ref={textArea}

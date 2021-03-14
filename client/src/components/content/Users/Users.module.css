@@ -27,6 +27,7 @@
 }
 button {
 	border-radius: 5px;
+	/* vertical-align: middle; */
 }
 .selectPage {
 	font-weight: bold;
@@ -121,4 +122,9 @@ button {
 	100% {
 		transform: rotate(360deg);
 	}
+}
+/* //--------------------------- */
+.loading{
+	width: 15px;
+	vertical-align: middle;
 }

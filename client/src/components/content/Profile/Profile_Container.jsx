@@ -1,24 +1,18 @@
 
 import React from 'react'
-// import { connect } from 'react-redux'
-import { Profile } from './Profile'
-import * as axios from 'axios'
-import { connect } from 'react-redux'
-import {setProfile} from '../../../redux/profile_reducer'
 import { withRouter } from 'react-router'
+import { connect } from 'react-redux'
+
+import { Profile } from './Profile'
+import { setProfile, getUserByIdThunk } from '../../../redux/profile_reducer'
 
 
-class ProfileContainer extends React.Component{
-//>
+class ProfileContainer extends React.Component {
+
 	componentDidMount = () => {
-		let userId = this.props.match.params.id
-		if(!userId) userId=''
-		axios.get(`/api/profile/${userId}`)
-			.then(res => {
-			this.props.setProfile(res.data)
-		})
-}
-//>
+		this.props.getUserByIdThunk(this.props.match.params.id)
+	}
+
 	render() {
 		return (
 			<Profile {...this.props} />
@@ -27,13 +21,21 @@ class ProfileContainer extends React.Component{
 }
 
 const mapStateToProps = state => {
+
 	return {
-		sss: state.profilePages
+		sss: state.profilePages.oneUser,
 	}
 }
 
 let withUrlContainerCompoment = withRouter(ProfileContainer)        //закинит в props данные из URL(withRouter- подключает компонент к маршрутизатору.)
 
-export default connect(mapStateToProps, {setProfile})(withUrlContainerCompoment)
+export default connect(mapStateToProps, { setProfile, getUserByIdThunk })(withUrlContainerCompoment)
 
 //< componentDidMount - метод жизненого цикла
+
+
+// //---HOC
+// const AuthRedirectComponent = (props) => {
+// 	if (!props.isAuth) return <Redirect to={'/login'} />
+// return <ProfileContainer {...props} />
+// }

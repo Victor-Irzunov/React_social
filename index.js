@@ -11,7 +11,7 @@ app.use(express.json({ extended: true }))          //1:33:40  //req.body - бы�
 app.use(cookieParser())
 
 app.use('/api/users', require('./routes/users.routes'))
-app.use('/api/profile', require('./routes/profile.routes'))
+app.use('/api/profiles', require('./routes/profile.routes'))
 app.use('/api/auth', require('./routes/auth.routes'))
 
 

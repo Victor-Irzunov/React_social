@@ -1,5 +1,4 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
 import css from './../Dialogs.module.css'
 
 
@@ -12,5 +11,3 @@ export const MessageItem = (props) => {
 
 
 
-
-//> NavLink - задача поменять URL в браузере без перезагрузки

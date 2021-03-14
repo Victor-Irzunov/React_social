@@ -8,15 +8,20 @@ router.get('/login', async (req, res) => {
 		const a = req.cookies
 		//// res.cookie('cook', 'ok');
 		const user = await UserLogin.findOne({ cookies: a })
-		if (JSON.stringify(user.cookies) === JSON.stringify(a)) {
-			return res.json({
-				user,
-				message: 'узнаю'
+		if (user !== null) {
+			if (JSON.stringify(user.cookies) === JSON.stringify(a)) {
+				return res.json({
+					user,
+					message: 'узнаю'
+				})
+			}
+		} else {
+			res.json({
+				message: 'не узнаю'
 			})
 		}
-		res.json({
-			message: 'не узнаю'
-		})
+		
+		
 	}
 	catch (e) {
 		res.status(500).json(
@@ -27,9 +32,6 @@ router.get('/login', async (req, res) => {
 		console.log(chalk.red('ошибка в "auth.routes" GET: ', e))
 	}
 })
-
-
-
 
 
 

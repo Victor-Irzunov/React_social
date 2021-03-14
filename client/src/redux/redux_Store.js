@@ -1,4 +1,5 @@
-import { combineReducers, createStore } from 'redux'
+import { applyMiddleware, combineReducers, createStore } from 'redux'
+import thunkMiddleware from 'redux-thunk'
 
 import profileReducer from './profile_reducer'
 import sidebarReducer from './sidebar_reducer'
@@ -18,9 +19,11 @@ let reducers = combineReducers(
 	}
 )
 
-let store = createStore(reducers)
+let store = createStore(reducers, applyMiddleware(thunkMiddleware))
 
 //!Не заывай!!!!!! Можно смотреть store
- window.store = store  //store.getState()
+ window.store = store  //*window.store.getState()
 
 export default store
+
+//: apply - применять, использовать

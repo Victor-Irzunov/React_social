@@ -23,7 +23,6 @@ const initialState = {
 //* Reducer
 const dialogsReducer = (state = initialState, action) => {
 
-
 	switch (action.type) {
 		case UPDATE_NEW_DIALOG_TEXT:
 			return {
@@ -48,11 +47,9 @@ const dialogsReducer = (state = initialState, action) => {
 
 //> ActionCreator:  (это ф-ция которая возвращает action)
 //! action - это обьект (как минимум есть св-во тип)
-export const sendMessageCreator = () => ({
-	type: SEND_MESSAGE
-})
 
-export const upDateNewDialogCreator = body => {
+export const sendMessage = () => ({type: SEND_MESSAGE})
+export const newDialog = body => {
 	return {
 		type: UPDATE_NEW_DIALOG_TEXT,
 		body: body

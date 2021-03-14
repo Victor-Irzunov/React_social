@@ -3,6 +3,7 @@ import css from './Users.module.css'
 import * as axios from 'axios'
 
 export const Users = props => {
+console.log("🚀  _ file: Users.jsx _ line 6 _ props", props)
 
 
 	const handleClick = () => {

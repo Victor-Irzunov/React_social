@@ -1,14 +1,25 @@
-//++ reducer - это чистая ф-ция которая принисает action и если надо модифицирует(dispatch) страрый state по принципу (копии) и возвращает измененую копию или если не менял то возрщ не тронутый state
-//> профессиональные разработчики начинают с бизнеса (BLL)
-//(BLL)
+//++ reducer - это чистая ф-ция которая принисает action и если надо модифицирует(dispatch) страрый state по принципу (копии) и возвращает измененую копию или если не менял то возрщ не тронутый state. это функции, которые изменяют состояние и делят его на мелкие, модульные и управляемые части.
+//< профессиональные разработчики начинают с бизнеса (BLL)
 
-//<  Users
+//.> _________________B.L.L.___________________
+
+//_  UsersReducer
+//:  UsersReducer
+//*  UsersReducer
+//=  UsersReducer
+//.  UsersReducer
+
+
+
+import { usersAPI } from '../API__DAL/api'
+
 
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS = 'SET_USERS'
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
 const TOGGLE_ISLOADING = 'TOGGLE_ISLOADING'
+const EXPECT_ISLOADING = 'EXPECT_ISLOADING'
 
 let initialState = {
 	users: [],
@@ -16,7 +27,8 @@ let initialState = {
 	pageSize: 5,
 	totalUsersCount: 0,
 	currentPage: 1,
-	isLoading: false                      //is.. -  boolen
+	isLoading: false,                      //.is.. -  boolen
+	isLoadingSubscription: [],
 }
 
 const usersReducer = (state = initialState, action) => {  //если state не передадут то будешь по умолчанию state = initialState
@@ -49,7 +61,7 @@ const usersReducer = (state = initialState, action) => {  //если state не 
 		case SET_USERS:
 			let a = {
 				...state,
-				users: action.users.docs,             //< сам не понял
+				users: action.users.docs,             //. сам не понял
 				docs: { ...state.docs, ...action.users }
 			}
 			return a
@@ -66,22 +78,89 @@ const usersReducer = (state = initialState, action) => {  //если state не 
 				isLoading: action.isLoad
 			}
 
+		case EXPECT_ISLOADING:
+			return {
+				...state,
+				isLoadingSubscription: action.bool
+					? [...state.isLoadingSubscription, action.id]
+					: state.isLoadingSubscription.filter(id => id != action.id)
+			}
+
 		default:
 			return state
 	}
 }
 
-//> ActionCreator  (это чистая ф-ция которая возвращает action)
-//! action - это обьект (как минимум есть св-во тип)
+//: ActionCreator _________ действие, которое было вызвано:
+//! action - это обьект,чистая ф-ция которая возвращает action (как минимум есть св-во тип)
 
-export const followAction = userId => ({ type: FOLLOW, userId })
-export const unfollowAction = userId => ({ type: UNFOLLOW, userId })
-export const setUsersAction = users => ({ type: SET_USERS, users })
-export const toggleIsLoadingAction = isLoad => ({type: TOGGLE_ISLOADING, isLoad})
-export const setCurrentPageAction = currentPage => {
+export const follow = userId => ({ type: FOLLOW, userId })
+export const unfollow = userId => ({ type: UNFOLLOW, userId })
+export const setUsers = users => ({ type: SET_USERS, users })
+export const toggleIsLoad = isLoad => ({ type: TOGGLE_ISLOADING, isLoad })
+export const expectIsLoad = (bool, id) => ({ type: EXPECT_ISLOADING, bool, id })
+export const setNumPage = currentPage => {
 	return { type: SET_CURRENT_PAGE, currentPage: currentPage }
 }
-//>
+
+
+//__Санки __________ Middleware (Усилители-это всегда ф-ция, которая обычно возвр. ф-цию, если только целью middleware не является прервать цепочку вызовов.):
+//- componentDidMount
+export const getUsersThunkCreator = () => {
+	return dispatch => {
+		dispatch(toggleIsLoad(true))
+
+		usersAPI.getUsersAxios()
+			.then(res => {
+				dispatch(toggleIsLoad(false))
+				dispatch(setUsers(res.data.result))
+			})
+			.catch(err => console.log('Витя ошибка err: ', err))
+	}
+}
+
+//- on
+export const getPagesThunkCreator = num => {
+	return dispatch => {
+		dispatch(toggleIsLoad(true))
+		dispatch(setNumPage(num))
+
+		usersAPI.getPagesAxios(num)
+			.then(res => {
+				dispatch(toggleIsLoad(false))
+				dispatch(setUsers(res.data.result))
+			})
+			.catch(err => console.log('Витя ошибка err: ', err))
+	}
+}
+
+//-follow
+export const followThunkCreator = id => {
+	return dispatch => {
+		dispatch(expectIsLoad(true, id))
+
+		usersAPI.tofollowAxios(id)
+			.then(res => {
+				dispatch(follow(id))
+				dispatch(expectIsLoad(false, id))
+				console.log('ответ: ', res.data)
+			})
+	}
+}
+
+//-unfollow
+export const unFollowThunkCreator = id => {
+	return dispatch => {
+		dispatch(expectIsLoad(true, id))
+
+		usersAPI.unFollowAxios(id)
+			.then(res => {
+				dispatch(follow(id))
+				dispatch(expectIsLoad(false, id))
+				console.log('ответ: ', res.data)
+			})
+	}
+}
 
 
 export default usersReducer

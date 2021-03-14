@@ -1,26 +1,25 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { NavLink } from 'react-router-dom'
 import css from './Users.module.css'
 
 
 const Users1 = props => {
-	let pageCount = Math.ceil(props.totalUsersCount / props.pageSize)
+	let pageCount = Math.ceil(props.all.totalUsersCount / props.all.pageSize)
 
 	const pages = []
 	for (let i = 1; i <= pageCount; i++) {
 		pages.push(i)
 	}
 
-
 	return (
 		<div>
 			<div className={css.numPage}>
 				{pages.map(num => {
-					return <span className={props.currentPage === num ? css.selectPage : ''} onClick={() => { props.on(num) }} key={num}>{num}</span>
+					return <span className={props.all.currentPage === num ? css.selectPage : ''} onClick={() => { props.on(num) }} key={num}>{num}</span>
 				})}
 			</div>
 			{
-				props.userss.map(obj =>
+				props.all.userss.map(obj =>
 					<div className={css.block} key={obj.id}>
 						<div className={css.col}>
 							<div>
@@ -29,11 +28,42 @@ const Users1 = props => {
 								</NavLink>
 							</div>
 							<div>
-								{obj.followed
-									?
-									<button onClick={() => { props.unfollow(obj.id) }}>Unfollow</button>
-									:
-									<button onClick={() => { props.follow(obj.id) }}>Follow</button>
+								{
+									obj.followed
+										?
+										<button
+											onClick={() => { props.unfol_low(obj.id) }}
+											disabled={props.all.isLoadingSubscription.some(id => id === obj.id)}
+										>
+											{
+												props.all.isLoadingSubscription.some(id => id === obj.id)
+													?
+													<img src={'https://upload.wikimedia.org/wikipedia/commons/c/c7/Loading_2.gif'} className={css.loading} />
+													: null
+											}
+											{
+												props.all.isLoadingSubscription.some(id => id === obj.id)
+													? 'подождите'
+													: 'Unfollow'
+											}
+										</button>
+										:
+										<button
+											onClick={() => { props.fol_low(obj.id) }}
+											disabled={props.all.isLoadingSubscription.some(id => id === obj.id)}
+										>
+											{
+												props.all.isLoadingSubscription.some(id => id === obj.id)
+													?
+													<img src={'https://upload.wikimedia.org/wikipedia/commons/c/c7/Loading_2.gif'} className={css.loading} />
+													: null
+											}
+											{
+												props.all.isLoadingSubscription.some(id => id === obj.id)
+													? 'подождите'
+													: 'Follow'
+											}
+										</button>
 								}
 							</div>
 						</div>
@@ -54,6 +84,10 @@ const Users1 = props => {
 }
 
 export default Users1
+
+
+//< Метод some() проверяет, удовлетворяет ли какой-либо элемент массива условию, заданному в передаваемой функции.
+//> NavLink - задача поменять URL в браузере без перезагрузки
 
 
 	// axios.post('/api/users', {

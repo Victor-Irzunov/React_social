@@ -1,3 +1,7 @@
+
+import { cookieLoginAxios } from '../API__DAL/api'
+
+
 const SET_AUTH_LOGIN = 'SET_AUTH_LOGIN'
 
 const initialState = {
@@ -20,6 +24,24 @@ const authReducer = ( state = initialState, action ) => {
 	}
 }
 
-export const authReduser = (id, email, password) => ({ type: SET_AUTH_LOGIN, data: { id, email, password } })
+//> ActionCreator
+export const setAuthHeaderAction = (id, email, password) => ({ type: SET_AUTH_LOGIN, data: { id, email, password } })
+
+
+//(Санки):
+export const authHeaderThunk = () => {
+	return dispatch => {
+		cookieLoginAxios()
+			.then(res => {
+				if (res.data.user) {
+					let { id, email, password } = res.data.user
+					dispatch(setAuthHeaderAction(id, email, password))
+				}
+			})
+	}
+}
+
+
+
 
 export default authReducer

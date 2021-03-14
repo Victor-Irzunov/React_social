@@ -1,23 +1,26 @@
 import React from 'react'
-import { Navbar } from './components/stat/Navbar.jsx'
+import NavBarContainer_w from './components/stat/Navbar_container.jsx'
 import HeaderContainer from './components/stat/Header_container.jsx'
 import ProfileContainer from './components/content/Profile/Profile_Container.jsx'
 import UsersContainer from './components/content/Users/Users_container.jsx'
-import DialogContainer from './components/content/Dialogs/Dialogs_Container'
+import DialogContainer_w from './components/content/Dialogs/Dialogs_Container'
+import { Login } from './components/content/Login/Login'
 import { BrowserRouter, BrowserRouter as Router, Route } from 'react-router-dom'
 import './App.css'
 
 
-function App() {
+function App(props) {
   return (
 
     <div className='app-wrapper'>
+
       <HeaderContainer />
-      <Navbar />
+      <NavBarContainer_w />
+
       <div className='content'>
 
         <Route path='/dialogs'>
-          <DialogContainer />
+          <DialogContainer_w />
         </Route>
 
         <Route path='/profile/:id?'>
@@ -26,6 +29,10 @@ function App() {
 
         <Route path='/users'>
           <UsersContainer />
+        </Route>
+
+        <Route path='/login'>
+          <Login />
         </Route>
 
         {/* <Route path='/dialogs' render={() => <Dialogs data={props} /> } />

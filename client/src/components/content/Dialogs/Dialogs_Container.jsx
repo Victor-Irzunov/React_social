@@ -1,32 +1,50 @@
 import React from 'react'
-import { upDateNewDialogCreator, sendMessageCreator } from '../../../redux/dialogs_reducer'
+import { newDialog, sendMessage } from '../../../redux/dialogs_reducer'
 import { Dialogs } from './Dialogs'
 import { connect } from 'react-redux'
 
 
 
 //>  контейнерная компонента при испл. REACT-REDAX:
-//забываем про store
+class DialogClassContainer extends React.Component {
+
+	//-onChange
+	onNewDialog = body => this.props.newDialog(body)
+
+	//-onClick
+	sendMessageBody = () => this.props.sendMessage()
+
+
+	//! Render:
+	render() {
+		return (
+			<Dialogs
+				all={this.props}
+				onChange_NewDialog={this.onNewDialog}
+				onClick_addNewDialog={this.sendMessageBody}
+			/>
+		)
+	}
+}
 
 let mapStateToProps = state => {
 	return {
 		dialogData: state.dialogsPage.dialogData,
 		messages: state.dialogsPage.messages,
-		newDialogText: state.dialogsPage.newDialogText
+		newDialogText: state.dialogsPage.newDialogText,
 	}
 }
 let mapDispatchToProps = dispatch => {
 	return {
-		upDateNewDialogBody: body => dispatch(upDateNewDialogCreator(body)),
-
-		sendMessageBody: () => dispatch(sendMessageCreator())
+		newDialog: body => dispatch(newDialog(body)),
+		sendMessage: () => dispatch(sendMessage())
 	}
 }
 
-const DialogContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)          //< вторые скобки вызвали ф-цию которую вернули первые скобки
+const DialogContainer_w = connect(mapStateToProps, mapDispatchToProps)(DialogClassContainer)          //< вторые скобки вызвали ф-цию которую вернули первые скобки
 
 
-export default DialogContainer
+export default DialogContainer_w
 
 
 
