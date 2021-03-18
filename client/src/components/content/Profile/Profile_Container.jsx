@@ -4,32 +4,42 @@ import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
 
 import { Profile } from './Profile'
-import { setProfile, getUserByIdThunk } from '../../../redux/profile_reducer'
+import { setProfile, getUserByIdThunk, getStatusThunk, upDateStatusThunk } from '../../../redux/profile_reducer'
 
 
 class ProfileContainer extends React.Component {
 
 	componentDidMount = () => {
 		this.props.getUserByIdThunk(this.props.match.params.id)
+		this.props.getStatusThunk(this.props.match.params.id)
 	}
+
 
 	render() {
 		return (
-			<Profile {...this.props} />
+			<Profile
+				{...this.props}
+				status={this.props.status}
+				upDateStatus={this.props.upDateStatusThunk}
+			/>
 		)
 	}
 }
 
 const mapStateToProps = state => {
+console.log("🚀  _ file: Profile_Container.jsx _ line 30 _ state", state)
 
 	return {
 		sss: state.profilePages.oneUser,
+		status: state.profilePages.status
 	}
 }
 
 let withUrlContainerCompoment = withRouter(ProfileContainer)        //закинит в props данные из URL(withRouter- подключает компонент к маршрутизатору.)
 
-export default connect(mapStateToProps, { setProfile, getUserByIdThunk })(withUrlContainerCompoment)
+export default connect(mapStateToProps,
+	{ getUserByIdThunk, getStatusThunk, upDateStatusThunk }
+)(withUrlContainerCompoment)
 
 //< componentDidMount - метод жизненого цикла
 

@@ -1,3 +1,4 @@
+
 import React from 'react'
 import css from './ProfileInfo.module.css'
 // import ProfileStatusContainer from './ProfileStatus/ProfileStatus_Container'
@@ -23,6 +24,7 @@ export const ProfileInfo = props => {
 			</div>
 		)
 	}
+	console.log("🚀  _ file: ProfileInfo.jsx _ line 45 _ props.status", props.status)
 
 	return (
 		<div>
@@ -38,7 +40,11 @@ export const ProfileInfo = props => {
 					<u>Subscription:</u> <b>{props.www.user.followed ? 'Подписан' : 'Не подписан'}</b>
 				</div>
 			</div>
-			<ProfileStatus user={props.www.user} />
+			<ProfileStatus
+				user={props.www.user}
+				status={props.status}
+				upDateStatus={props.upDateStatus}
+			/>
 		</div>
 
 	)
@@ -53,6 +59,7 @@ export const ProfileInfo = props => {
 
 //https://cs9.pikabu.ru/avatars/2293/x2293505-666315228.png
 //https://via.placeholder.com/150
+
 
 
 

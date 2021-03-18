@@ -9,7 +9,7 @@ import { BrowserRouter, BrowserRouter as Router, Route } from 'react-router-dom'
 import './App.css'
 
 
-function App(props) {
+function App() {
   return (
 
     <div className='app-wrapper'>

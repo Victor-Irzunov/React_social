@@ -9,46 +9,61 @@ const styles = {
 	}
 }
 
-
-
-
 export const ProfileStatus = props => {
-console.log("🚀  _ file: ProfileStatus.jsx _ line 16 _ props", props)
 
+	const [state, setState] = useState({
+			editMode: false,
+			status: props.status
+		})
 
-	const [state, setState] = useState(() => ({ editMode: false }))
-	const activeEditMode = () => setState({ editMode: true })
-	const deactiveEditMode = () => setState({ editMode: false })
+	const activeEditMode = () => setState(prev => {
+		return {
+			...prev,
+			editMode: true,
+			status: props.status
+		}
+	})
 
-	// const inPut = React.createRef()
+	const deactiveEditMode = () => {
+		setState(prev => {
+			props.upDateStatus(prev.status, props.user.id)
+			return {
+				...prev,
+				editMode: false,
+				status: props.status 
+			}
+		})
+	}
 
-	// const on = () => {
-	// 	const text = inPut.current.value
-	// 	props.updateNewStatusText(text)
-	// }
+	const on = e => {
+		setState({
+			status: e.currentTarget.value,
+			editMode: true,
+		})
+	}
+
 
 	return (
 		<div>
 			{!state.editMode &&
 				<div>
 					<span style={styles.span} onDoubleClick={activeEditMode}>
-						{props.user.status}
+						{props.status}
 					</span>
 				</div>
 			}
 
 			{state.editMode &&
 				<div>
-				<input
-					type="text"
-					style={styles.input}
-					onBlur={deactiveEditMode}
-					autoFocus={true}
-					defaultValue={props.user.status}
-					// value={props.newStatusText}
-					// ref={inPut}
-					// onChange={on}
-				/>
+					<input
+						type="text"
+						style={styles.input}
+						onChange={on}
+						onBlur={deactiveEditMode}
+						autoFocus={true}
+						value={state.status}
+						// defaultValue={state.status}
+					/>
 				</div>
 			}
 		</div>

@@ -5,7 +5,7 @@ import { ProfileInfo } from './ProfileInfo/ProfileInfo'
 import { Redirect } from 'react-router'
 
 
-export const Profile = (props) => {
+export const Profile = props => {
 
 
 	return (
@@ -13,7 +13,7 @@ export const Profile = (props) => {
 			<div className='images'>
 				<img src='https://www.spain-internship.com/images/USA-internship2.png' />
 			</div>
-			<ProfileInfo www={props.sss} />
+			<ProfileInfo www={props.sss} status={props.status} upDateStatus={props.upDateStatus}/>
 			<MyPostsContainer />
 		</div>
 	)

@@ -1,14 +1,13 @@
-
 //<   Profile
 
-import { getUsersByIdAxios } from '../API__DAL/api'
-import * as axios from 'axios'
+import { getUsersByIdAxios, getStatusByIdAxios, putStatusByIdAxios } from '../API__DAL/api'
+// import * as axios from 'axios'
 
 
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
 const PROFILE_ONE = 'PROFILE_ONE'
-// const UPDATE_NEW_STATUS_TEXT = 'UPDATE_NEW_STATUS_TEXT'
+const UPDATE_NEW_STATUS_TEXT = 'UPDATE_NEW_STATUS_TEXT'
 
 const initialState = {
 	postData: [
@@ -16,14 +15,14 @@ const initialState = {
 		{ id: 2, message: 'It my first post', likesCouns: 4 },
 	],
 	newPostText: 'попа',
-	// newStatusText: 'пиши',
-	profile: null
+	profile: null,
+	status: ''
 }
 
 
 
 const profileReducer = (state = initialState, action) => {                        //если state не передадут то будешь по умолчанию state = initialState
-	//в dialog сделал по другому - локоничней
+
 	switch (action.type) {
 		case ADD_POST: {
 			let new_post = {
@@ -50,39 +49,72 @@ const profileReducer = (state = initialState, action) => {                      
 			return profileUser
 		}
 
-		// case UPDATE_NEW_STATUS_TEXT: {
-		// 	let stateStatusCopy = { ...state, newStatusText: action.text }
-		// 	return stateStatusCopy
-		// }
+		case UPDATE_NEW_STATUS_TEXT: {
+			let stateStatusCopy = { ...state, status: action.status }
+			return stateStatusCopy
+		}
+
 		default:
 			return state
 	}
 }
 
-//> ActionCreator  (это ф-ция которая возвращает action)
+//: ActionCreator  (это ф-ция которая возвращает action)
 //! action - это обьект (как минимум есть св-во тип)
 export const addPostActionCreator = () => ({ type: ADD_POST })
 export const addNewpostActionCreator = text => ({ type: UPDATE_NEW_POST_TEXT, postMessage: text })
 export const setProfile = a => {
 	return { type: PROFILE_ONE, a }
 }
-// export const addNewStatusActionCreator = text => ({ type: UPDATE_NEW_STATUS_TEXT, newStatusText: text })
+export const addNewStatusActionCreator = status => {
+	
+	return  { type: UPDATE_NEW_STATUS_TEXT, status: status }
+}
 
-//>
 
 
-//.Санки:
+//_Санки:
 
-//- getUserByIdThunk
+//- getUserById
 export const getUserByIdThunk = id => {
 	return dispatch => {
 		if (!id) id = ''
-		axios.get(`/api/profiles/${id}`).then(res => {
-				dispatch(setProfile(res.data))
-			})
+		getUsersByIdAxios(id).then(res => {
+			dispatch(setProfile(res.data))
+		})
+	}
+}
+
+
+
+//-getStatus
+export const getStatusThunk = id => {
+	return dispatch => {
+		getStatusByIdAxios(id).then(res => {
+			dispatch(addNewStatusActionCreator(res.data.userStatus))
+		})
+	}
+}
+
+
+
+
+//-upDateStatus
+export const upDateStatusThunk = (status, id) => {
+	return dispatch => {
+		putStatusByIdAxios(id, status).then(res => {
+			if (res.data.resultCode === 0) {
+				dispatch(addNewStatusActionCreator(status))
+			}
+
+		})
 	}
 }
 
 
 
 export default profileReducer
+
+
+
+

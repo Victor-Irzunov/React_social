@@ -104,7 +104,7 @@ export const setNumPage = currentPage => {
 }
 
 
-//__Санки __________ Middleware (Усилители-это всегда ф-ция, которая обычно возвр. ф-цию, если только целью middleware не является прервать цепочку вызовов.):
+//__Санки __________ Middleware асинхранно:
 //- componentDidMount
 export const getUsersThunkCreator = () => {
 	return dispatch => {
