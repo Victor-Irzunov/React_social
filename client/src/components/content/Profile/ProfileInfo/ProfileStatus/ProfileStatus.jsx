@@ -48,7 +48,7 @@ export const ProfileStatus = props => {
 			{!state.editMode &&
 				<div>
 					<span style={styles.span} onDoubleClick={activeEditMode}>
-						{props.status}
+						{props.status || "нет статуса"}
 					</span>
 				</div>
 			}

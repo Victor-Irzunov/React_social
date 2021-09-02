@@ -24,11 +24,11 @@ const authReducer = ( state = initialState, action ) => {
 	}
 }
 
-//> ActionCreator
+//: ActionCreator
 export const setAuthHeaderAction = (id, email, password) => ({ type: SET_AUTH_LOGIN, data: { id, email, password } })
 
 
-//(Санки):
+//.(Санки):
 export const authHeaderThunk = () => {
 	return dispatch => {
 		cookieLoginAxios()

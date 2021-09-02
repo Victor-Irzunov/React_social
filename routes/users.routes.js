@@ -26,8 +26,8 @@ router.get('/', async (req, res) => {
 //><
 router.post('/', async (req, res) => {
 	try {
-		const a = req.body
-		const new_user = new User({ ...a })
+		const reqBody = req.body
+		const new_user = new User({ ...reqBody })
 		await new_user.save()
 		res.status(201).json(
 			{

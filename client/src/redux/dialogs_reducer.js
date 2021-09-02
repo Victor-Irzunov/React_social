@@ -43,19 +43,20 @@ const dialogsReducer = (state = initialState, action) => {
 			return state
 	}
 }
-//*
 
-//> ActionCreator:  (это ф-ция которая возвращает action)
+
+//: ActionCreator:  (это ф-ция которая возвращает action)
 //! action - это обьект (как минимум есть св-во тип)
 
-export const sendMessage = () => ({type: SEND_MESSAGE})
+export const sendMessage = () => ({ type: SEND_MESSAGE })
+
 export const newDialog = body => {
 	return {
 		type: UPDATE_NEW_DIALOG_TEXT,
 		body: body
 	}
 }
-//>
+
 
 
 export default dialogsReducer

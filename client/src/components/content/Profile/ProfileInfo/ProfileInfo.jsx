@@ -14,17 +14,16 @@ export const ProfileInfo = props => {
 				<h1>ProfileInfo</h1>
 				<div className={css.box}>
 					<div className={css.avatar}>
-						<img src='https://via.placeholder.com/150' />
+						<img src='https://via.placeholder.com/150/vic' />
 					</div>
 					<div className={css.text}>
-						Avatar
+						Моя страница
 				</div>
 				</div>
-				<ProfileStatus user={'Status'} />
+				<ProfileStatus status={'моя страница'} />
 			</div>
 		)
 	}
-	console.log("🚀  _ file: ProfileInfo.jsx _ line 45 _ props.status", props.status)
 
 	return (
 		<div>

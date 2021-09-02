@@ -13,3 +13,10 @@ npm install mongoose-paginate                    //сам
 
 npm i redux-thunk                                //66 - 11:50 перейди:(https://www.youtube.com/watch?v=dtKX3JyeVts)
 
+npm i redux-form        удалил              //75 -13:50  перейди:(https://www.youtube.com/watch?v=yhBYEM3VDTk&list=PLcvhF2Wqh7DNVy1OCUpG3i5lyxyBWhGZ8&index=84&t=830s)
+(npm i react-final-form)   поставил                     если нету тесной связи  данных вашей формы с Redux, особенно если вам нужно подписаться на нее и изменить ее из частей вашего приложения, 
+                                                удаленных от вашего. компонент формы
+
+
+npm i styled-components    (не камасутра)      для Login.jsx
+npm i react-fontawesome    (не камасутра)      для Login.jsx

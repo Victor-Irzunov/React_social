@@ -14,11 +14,10 @@ const initialState = {
 		{ id: 1, message: 'hi, how are you?', likesCouns: 12 },
 		{ id: 2, message: 'It my first post', likesCouns: 4 },
 	],
-	newPostText: 'попа',
+	newPostText: 'напишите',
 	profile: null,
 	status: ''
 }
-
 
 
 const profileReducer = (state = initialState, action) => {                        //если state не передадут то будешь по умолчанию state = initialState
@@ -67,14 +66,11 @@ export const setProfile = a => {
 	return { type: PROFILE_ONE, a }
 }
 export const addNewStatusActionCreator = status => {
-	
 	return  { type: UPDATE_NEW_STATUS_TEXT, status: status }
 }
 
 
-
 //_Санки:
-
 //- getUserById
 export const getUserByIdThunk = id => {
 	return dispatch => {
@@ -85,8 +81,6 @@ export const getUserByIdThunk = id => {
 	}
 }
 
-
-
 //-getStatus
 export const getStatusThunk = id => {
 	return dispatch => {
@@ -96,9 +90,6 @@ export const getStatusThunk = id => {
 	}
 }
 
-
-
-
 //-upDateStatus
 export const upDateStatusThunk = (status, id) => {
 	return dispatch => {
@@ -106,11 +97,9 @@ export const upDateStatusThunk = (status, id) => {
 			if (res.data.resultCode === 0) {
 				dispatch(addNewStatusActionCreator(status))
 			}
-
 		})
 	}
 }
-
 
 
 export default profileReducer

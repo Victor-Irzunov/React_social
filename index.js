@@ -35,3 +35,7 @@ async function f_start() {
 	}
 }
 f_start()
+
+
+
+// "mongoUri": "mongodb+srv://Victor_React_Node:qaz123321@cluster0.65quu.mongodb.net/fb?retryWrites=true&w=majority",

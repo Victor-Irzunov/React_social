@@ -32,7 +32,7 @@ let store = {
 				{ id: 1, message: 'hi, how are you?', likesCouns: 12 },
 				{ id: 2, message: 'It my first post', likesCouns: 4 },
 			],
-			newPostText: 'попа',
+			newPostText: 'вот вот',
 		},
 		sidebar: {}
 	},
@@ -40,7 +40,6 @@ let store = {
 		console.log('-----')
 	},
 	getState() {
-		// debugger
 		return this._state
 	},
 	//> подписка и при изменении перерисовка:
@@ -60,8 +59,6 @@ let store = {
 	}
 }
 
-
-//Full stack developer  фул стэк ди'велэпэ
 export default store
 
 window.store = store
@@ -69,7 +66,7 @@ window.store = store
 //++ subscribe-  подписаться
 //* observer - наблюдатель
 //* dispatch - отправка
-//* call - вызов
+
 
 //( window.state = state  можно посмотреть в консоле
 

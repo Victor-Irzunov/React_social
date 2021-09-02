@@ -5,11 +5,11 @@ const router = Router()
 
 router.get('/login', async (req, res) => {
 	try {
-		const a = req.cookies
+		const cookie = req.cookies
 		//// res.cookie('cook', 'ok');
-		const user = await UserLogin.findOne({ cookies: a })
+		const user = await UserLogin.findOne({ cookies: cookie })
 		if (user !== null) {
-			if (JSON.stringify(user.cookies) === JSON.stringify(a)) {
+			if (JSON.stringify(user.cookies) === JSON.stringify(cookie)) {
 				return res.json({
 					user,
 					message: 'узнаю'
@@ -20,8 +20,6 @@ router.get('/login', async (req, res) => {
 				message: 'не узнаю'
 			})
 		}
-		
-		
 	}
 	catch (e) {
 		res.status(500).json(
@@ -39,7 +37,6 @@ router.post('/login', async (req, res) => {
 	try {
 		const { email, password, cookies } = req.body
 		const new_user = new UserLogin({ email, password, cookies })
-      console.log("🚀  _ file: auth.routes.js _ line 50 _ router.post _ new_user", new_user)
 		await new_user.save()
 		res.status(201).json(
 			{

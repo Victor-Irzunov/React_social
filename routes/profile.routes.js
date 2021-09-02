@@ -47,18 +47,18 @@ router.put('/status/:id', async (req, res) => {
 	try {
 		const user = await User.findById(req.params.id)
 		const a = await req.body
-		user.status = a.status
+		console.log("🚀  _ file: profile.routes.js _ line 50 _ router.put _ a", a.status)
+
+		if (a.status) {
+			console.log('true')
+			user.status = a.status
+		} else {
+			console.log(' "пусто" ')
+			user.status = "нет статуса"
+		}
 		await user.save()
 		const userStatus = user.status
-		if (a.status === '') {
-			res.json(
-				{
-					resultCode: 1,
-					message: 'Cтатус не обновился, где-то ошибка',
-					data: {}
-				}
-			)
-		}
+
 		res.json(
 			{
 				resultCode: 0,

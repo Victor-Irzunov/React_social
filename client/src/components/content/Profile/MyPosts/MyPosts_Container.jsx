@@ -3,11 +3,8 @@ import { addPostActionCreator, addNewpostActionCreator } from '../../../../redux
 import { MyPosts } from './MyPosts'
 import { connect } from 'react-redux'
 
-//* то что она контейнерная компонента ей разрешено быть не чистой, не тупой, ей разрешено знать излишние знания и задача:  удовлетворить нужды презентационной компонен.(отрисовать през компн.)
-
-
-//>  контейнерная компонента при испл. REACT-REDAX:
-//забываем про store
+//* то что она контейнерная компонента ей разрешено быть не чистой, не тупой, ей разрешено знать излишние знания и задача:_удовлетворить(отрисовать) нужды презентационной компонен.
+//.  контейнерная компонента при испл. REACT-REDAX:
 
 
 let mapStateToProps = state => {
@@ -23,25 +20,32 @@ let mapDispatchToProps = dispatch => {
 	}
 }
 
-const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts)          //< вторые скобки вызвали ф-цию которую вернули первые скобки
+const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts)          //_ вторые скобки вызвали ф-цию которую вернули первые скобки
 
 
 export default MyPostsContainer
 
 
 
-//< (MyPosts) перерисуйся когда изменится state.profilePages.postData или state.profilePages.newPostText
+//: (MyPosts) перерисуйся когда изменится state.profilePages.postData или state.profilePages.newPostText
 
 
 
-//++Consumer - Потребитель
+//_Consumer - Потребитель
 //<   resolve(англ)-разрешить
-//<   empty(англ)-пустой 
-//()   props(англ)-реквизит
-//++   found(англ)-нашел
+//_   empty(англ)-пустой 
+//:   props(англ)-реквизит
+//.   found(англ)-нашел
 //*   layer(англ)- слой
-//'   Compiled -составленный, подготовленный)
+//.   Compiled -составленный, подготовленный
 //>   build- строить
+
+
+
+
+
+
+
 
 //------------------------------------------------------------------
 // export const MyPostsContainer = (props) => {
